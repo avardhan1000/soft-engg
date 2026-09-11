@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SecureLife - Online Insurance Policy System</title>
+
+<style>
+
+/* ================= GENERAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+    scroll-behavior:smooth;
+}
+
+:root{
+    --primary:#003366;
+    --secondary:#00509d;
+    --accent:#00a8ff;
+    --light:#f4f7fc;
+    --white:#ffffff;
+    --text:#333;
+    --success:#159447;
+    --danger:#e63946;
+}
+
+body{
+    background:var(--light);
+    color:var(--text);
+    transition:0.3s;
+}
+
+section{
+    padding:70px 6%;
+}
+
+.section-title{
+    text-align:center;
+    color:var(--primary);
+    font-size:32px;
+    margin-bottom:40px;
+}
+
+.section-subtitle{
+    text-align:center;
+    margin-top:-25px;
+    margin-bottom:35px;
+    color:#666;
+}
+
+
+/* ================= HEADER ================= */
+
+header{
+    background:var(--primary);
+    color:white;
+    padding:15px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#00a8ff;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:22px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00a8ff;
+}
+
+.menu-btn{
+    display:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+    linear-gradient(rgba(0,51,102,.9),rgba(0,80,157,.85)),
+    radial-gradient(circle at top,#168cff,#003366);
+    color:white;
+}
+
+.hero-content{
+    max-width:800px;
+}
+
+.hero h2{
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 28px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
+    transition:.3s;
+}
+
+.primary-btn{
+    background:white;
+    color:var(--primary);
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+}
+
+.secondary-btn{
+    background:transparent;
+    color:white;
+    border:2px solid white;
+}
+
+.secondary-btn:hover{
+    background:white;
+    color:var(--primary);
+}
+
+
+/* ================= STATISTICS ================= */
+
+.stats{
+    margin-top:-50px;
+    position:relative;
+}
+
+.stats-container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    border-radius:15px;
+    padding:30px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat h3{
+    color:var(--secondary);
+    font-size:30px;
+}
+
+.stat p{
+    margin-top:5px;
+    color:#666;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    max-width:600px;
+    margin:0 auto 35px;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+
+/* ================= PLANS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+}
+
+.card.popular{
+    border:2px solid var(--accent);
+}
+
+.badge{
+    position:absolute;
+    top:15px;
+    right:-35px;
+    background:#00a8ff;
+    color:white;
+    padding:6px 40px;
+    transform:rotate(45deg);
+    font-size:12px;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:var(--primary);
+    margin-bottom:12px;
+    font-size:23px;
+}
+
+.price{
+    font-size:27px;
+    font-weight:bold;
+    color:var(--secondary);
+    margin:15px 0;
+}
+
+.price span{
+    font-size:14px;
+    color:#777;
+}
+
+.features{
+    list-style:none;
+    margin:20px 0;
+}
+
+.features li{
+    padding:8px 0;
+}
+
+.features li::before{
+    content:"✔ ";
+    color:var(--success);
+    font-weight:bold;
+}
+
+.card button{
+    width:100%;
+    background:var(--secondary);
+    color:white;
+    border:none;
+    padding:13px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.card button:hover{
+    background:var(--primary);
+}
+
+
+/* ================= CALCULATOR ================= */
+
+.calculator{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-bottom:5px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--secondary);
+}
+
+.calculate-btn{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#eef8ff;
+    border-radius:8px;
+    text-align:center;
+    display:none;
+}
+
+.result strong{
+    font-size:28px;
+    color:var(--secondary);
+}
+
+
+/* ================= PURCHASE FORM ================= */
+
+.form-container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.submit-btn{
+    width:100%;
+    background:var(--primary);
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#message{
+    margin-top:15px;
+    text-align:center;
+    color:var(--success);
+    font-weight:bold;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.dashboard-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.dashboard-card h3{
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.dashboard-card .number{
+    font-size:30px;
+    font-weight:bold;
+    color:var(--secondary);
+}
+
+.status{
+    display:inline-block;
+    margin-top:10px;
+    padding:5px 12px;
+    border-radius:20px;
+    background:#dff7e8;
+    color:var(--success);
+    font-size:13px;
+}
+
+
+/* ================= CLAIMS ================= */
+
+.claim-box{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.claim-steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:25px;
+}
+
+.step{
+    text-align:center;
+    padding:20px;
+}
+
+.step span{
+    display:inline-flex;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    align-items:center;
+    justify-content:center;
+    background:var(--secondary);
+    color:white;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+
+/* ================= TESTIMONIALS ================= */
+
+.testimonials{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.testimonial{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.stars{
+    color:#f5b301;
+    margin-bottom:10px;
+}
+
+.testimonial h4{
+    margin-top:15px;
+    color:var(--primary);
+}
+
+
+/* ================= FAQ ================= */
+
+.faq{
+    max-width:800px;
+    margin:auto;
+}
+
+.faq-item{
+    background:white;
+    margin-bottom:10px;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.faq-question{
+    padding:18px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+}
+
+.faq-answer{
+    padding:0 18px 18px;
+    display:none;
+    color:#666;
+}
+
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact{
+    text-align:center;
+}
+
+.contact-info{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.contact-card{
+    background:white;
+    padding:25px;
+    width:250px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.contact-card h3{
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:var(--primary);
+    color:white;
+    padding:40px 6%;
+    text-align:center;
+}
+
+.footer-links{
+    margin:20px 0;
+}
+
+.footer-links a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+}
+
+.footer-links a:hover{
+    color:#00a8ff;
+}
+
+
+/* ================= TOP BUTTON ================= */
+
+#topBtn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    cursor:pointer;
+    display:none;
+    font-size:20px;
+}
+
+
+/* ================= TOAST ================= */
+
+#toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#222;
+    color:white;
+    padding:14px 25px;
+    border-radius:8px;
+    display:none;
+    z-index:2000;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .testimonials{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:768px){
+
+    header{
+        padding:15px 20px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        background:var(--primary);
+        flex-direction:column;
+        padding:20px;
+    }
+
+    nav.active{
+        display:flex;
+    }
+
+    nav a{
+        margin:12px 0;
+    }
+
+    .hero{
+        min-height:500px;
+    }
+
+    .hero h2{
+        font-size:36px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    section{
+        padding:50px 20px;
+    }
+
+    .cards,
+    .dashboard,
+    .testimonials{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .claim-steps{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .logo{
+        font-size:20px;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .section-title{
+        font-size:26px;
+    }
+
+    .stats-container{
+        grid-template-columns:1fr;
+    }
+
+    .calculator,
+    .form-container,
+    .claim-box{
+        padding:22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        Secure<span>Life</span>
+    </div>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
+        <a href="#home">Home</a>
+        <a href="#plans">Plans</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#purchase">Buy Policy</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#claims">Claims</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h2>Protect What Matters Most</h2>
+
+        <p>
+            Simple, affordable and secure insurance
+            solutions for you and your family.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn primary-btn"
+            onclick="document.getElementById('plans').scrollIntoView()">
+                Explore Plans
+            </button>
+
+            <button class="btn secondary-btn"
+            onclick="document.getElementById('calculator').scrollIntoView()">
+                Calculate Premium
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stats-container">
+
+        <div class="stat">
+            <h3>50K+</h3>
+            <p>Happy Customers</p>
+        </div>
+
+        <div class="stat">
+            <h3>98%</h3>
+            <p>Claim Settlement</p>
+        </div>
+
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>Customer Support</p>
+        </div>
+
+        <div class="stat">
+            <h3>15+</h3>
+            <p>Insurance Plans</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PLANS ================= -->
+
+<section id="plans">
+
+    <h2 class="section-title">Choose Your Insurance Plan</h2>
+
+    <p class="section-subtitle">
+        Find the right protection for your needs.
+    </p>
+
+    <div class="search-box">
+
+        <input type="text"
+        id="planSearch"
+        placeholder="🔍 Search insurance plan..."
+        onkeyup="searchPlans()">
+
+    </div>
+
+
+    <div class="cards" id="planCards">
+
+
+        <!-- LIFE -->
+
+        <div class="card plan-card">
+
+            <div class="card-icon">👨‍👩‍👧</div>
+
+            <h3>Life Insurance</h3>
+
+            <p>Financial protection for your family.</p>
+
+            <div class="price">
+                ₹999 <span>/ month</span>
+            </div>
+
+            <ul class="features">
+                <li>Coverage up to ₹50 Lakhs</li>
+                <li>Family Protection</li>
+                <li>Tax Benefits</li>
+                <li>Flexible Premium</li>
+            </ul>
+
+            <button onclick="selectPlan('Life Insurance')">
+                Select Plan
+            </button>
+
+        </div>
+
+
+        <!-- HEALTH -->
+
+        <div class="card plan-card popular">
+
+            <div class="badge">POPULAR</div>
+
+            <div class="card-icon">🏥</div>
+
+            <h3>Health Insurance</h3>
+
+            <p>Complete healthcare protection.</p>
+
+            <div class="price">
+                ₹799 <span>/ month</span>
+            </div>
+
+            <ul class="features">
+                <li>Cashless Hospitalization</li>
+                <li>Family Coverage</li>
+                <li>Medical Expenses</li>
+                <li>24/7 Assistance</li>
+            </ul>
+
+            <button onclick="selectPlan('Health Insurance')">
+                Select Plan
+            </button>
+
+        </div>
+
+
+        <!-- VEHICLE -->
+
+        <div class="card plan-card">
+
+            <div class="card-icon">🚗</div>
+
+            <h3>Vehicle Insurance</h3>
+
+            <p>Protect your car or bike.</p>
+
+            <div class="price">
+                ₹599 <span>/ month</span>
+            </div>
+
+            <ul class="features">
+                <li>Accident Protection</li>
+                <li>Theft Protection</li>
+                <li>Third Party Cover</li>
+                <li>Roadside Assistance</li>
+            </ul>
+
+            <button onclick="selectPlan('Vehicle Insurance')">
+                Select Plan
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CALCULATOR ================= -->
+
+<section id="calculator">
+
+    <h2 class="section-title">Premium Calculator</h2>
+
+    <p class="section-subtitle">
+        Get an estimated monthly premium instantly.
+    </p>
+
+    <div class="calculator">
+
+        <div class="form-grid">
+
+            <div>
+
+                <label>Age</label>
+
+                <input type="number"
+                id="calcAge"
+                placeholder="Enter age">
+
+            </div>
+
+
+            <div>
+
+                <label>Insurance Type</label>
+
+                <select id="calcType">
+
+                    <option value="life">Life Insurance</option>
+                    <option value="health">Health Insurance</option>
+                    <option value="vehicle">Vehicle Insurance</option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>Coverage</label>
+
+                <select id="coverage">
+
+                    <option value="10">₹10 Lakhs</option>
+                    <option value="25">₹25 Lakhs</option>
+                    <option value="50">₹50 Lakhs</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button class="calculate-btn"
+        onclick="calculatePremium()">
+
+            Calculate Premium
+
+        </button>
+
+
+        <div class="result" id="result">
+
+            Estimated Monthly Premium:
+
+            <br>
+
+            <strong id="premium"></strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PURCHASE ================= -->
+
+<section id="purchase">
+
+    <h2 class="section-title">Buy Your Policy</h2>
+
+    <div class="form-container">
+
+        <form id="insuranceForm">
+
+            <div class="form-grid">
+
+                <div>
+
+                    <label>Full Name</label>
+
+                    <input type="text"
+                    id="name"
+                    placeholder="Enter full name"
+                    required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Email</label>
+
+                    <input type="email"
+                    id="email"
+                    placeholder="Enter email"
+                    required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Phone Number</label>
+
+                    <input type="tel"
+                    placeholder="Enter phone number"
+                    required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Age</label>
+
+                    <input type="number"
+                    min="18"
+                    max="100"
+                    placeholder="Enter age"
+                    required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Policy</label>
+
+                    <select id="policySelect" required>
+
+                        <option value="">
+                            Select Policy
+                        </option>
+
+                        <option>
+                            Life Insurance
+                        </option>
+
+                        <option>
+                            Health Insurance
+                        </option>
+
+                        <option>
+                            Vehicle Insurance
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Payment Mode</label>
+
+                    <select required>
+
+                        <option>Monthly</option>
+                        <option>Quarterly</option>
+                        <option>Yearly</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button class="submit-btn">
+                Submit Application
+            </button>
+
+        </form>
+
+
+        <p id="message"></p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard">
+
+    <h2 class="section-title">Customer Dashboard</h2>
+
+    <div class="dashboard">
+
+        <div class="dashboard-card">
+
+            <h3>Active Policies</h3>
+
+            <div class="number">3</div>
+
+            <span class="status">Active</span>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <h3>Total Coverage</h3>
+
+            <div class="number">₹75L</div>
+
+            <span class="status">Protected</span>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <h3>Premium Due</h3>
+
+            <div class="number">₹2,500</div>
+
+            <span class="status">Due Soon</span>
+
+        </div>
+
+
+        <div class="dashboar
